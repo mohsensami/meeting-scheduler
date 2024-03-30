@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { app } from '@/config/FirebaseConfig';
 import { useRouter } from 'next/navigation';
-// import MeetingType from './meeting-type/page';
+import MeetingType from './meeting-type/page';
 function Dashboard() {
     const db = getFirestore(app);
     const { user } = useKindeBrowserClient();
@@ -34,7 +34,11 @@ function Dashboard() {
         return <h2>Loading...</h2>;
     }
 
-    return <div>{/* <MeetingType /> */}</div>;
+    return (
+        <div>
+            <MeetingType />
+        </div>
+    );
 }
 
 export default Dashboard;
