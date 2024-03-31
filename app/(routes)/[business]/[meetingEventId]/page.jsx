@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-// import MeetingTimeDateSelection from '../_components/MeetingTimeDateSelection';
+import MeetingTimeDateSelection from '../_components/MeetingTimeDateSelection';
 import { collection, doc, getDoc, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { app } from '@/config/FirebaseConfig';
 
@@ -31,7 +31,11 @@ function SharedMeetingEvent({ params }) {
         setLoading(false);
     };
 
-    return <div>{/* <MeetingTimeDateSelection eventInfo={eventInfo} businessInfo={businessInfo} /> */}</div>;
+    return (
+        <div>
+            <MeetingTimeDateSelection eventInfo={eventInfo} businessInfo={businessInfo} />
+        </div>
+    );
 }
 
 export default SharedMeetingEvent;
