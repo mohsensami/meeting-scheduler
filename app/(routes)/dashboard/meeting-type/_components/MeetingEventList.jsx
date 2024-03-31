@@ -23,7 +23,7 @@ function MeetingEventList() {
     const [eventList, setEventList] = useState([]);
     useEffect(() => {
         user && getEventList();
-        // user && BusinessInfo();
+        user && BusinessInfo();
     }, [user]);
     const getEventList = async () => {
         setEventList([]);
@@ -38,11 +38,11 @@ function MeetingEventList() {
         });
     };
 
-    // const BusinessInfo = async () => {
-    //     const docRef = doc(db, 'Business', user.email);
-    //     const docSnap = await getDoc(docRef);
-    //     setBusinessInfo(docSnap.data());
-    // };
+    const BusinessInfo = async () => {
+        const docRef = doc(db, 'Business', user.email);
+        const docSnap = await getDoc(docRef);
+        setBusinessInfo(docSnap.data());
+    };
 
     const onDeleteMeetingEvent = async (event) => {
         await deleteDoc(doc(db, 'MeetingEvent', event?.id)).then((resp) => {
@@ -52,9 +52,9 @@ function MeetingEventList() {
     };
 
     const onCopyClickHandler = (event) => {
-        // const meetingEventUrl = process.env.NEXT_PUBLIC_BASE_URL + '/' + businessInfo.businessName + '/' + event.id;
-        // navigator.clipboard.writeText(meetingEventUrl);
-        navigator.clipboard.writeText(event.locationUrl);
+        const meetingEventUrl = process.env.NEXT_PUBLIC_BASE_URL + '/' + businessInfo.businessName + '/' + event.id;
+        navigator.clipboard.writeText(meetingEventUrl);
+        // navigator.clipboard.writeText(event.locationUrl);
         toast('Copied to Clicpboard');
     };
     return (
