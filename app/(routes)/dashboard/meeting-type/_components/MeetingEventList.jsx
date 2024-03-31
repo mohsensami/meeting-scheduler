@@ -44,12 +44,12 @@ function MeetingEventList() {
     //     setBusinessInfo(docSnap.data());
     // };
 
-    // const onDeleteMeetingEvent = async (event) => {
-    //     await deleteDoc(doc(db, 'MeetingEvent', event?.id)).then((resp) => {
-    //         toast('Meeting Event Deleted!');
-    //         getEventList();
-    //     });
-    // };
+    const onDeleteMeetingEvent = async (event) => {
+        await deleteDoc(doc(db, 'MeetingEvent', event?.id)).then((resp) => {
+            toast('Meeting Event Deleted!');
+            getEventList();
+        });
+    };
 
     const onCopyClickHandler = (event) => {
         // const meetingEventUrl = process.env.NEXT_PUBLIC_BASE_URL + '/' + businessInfo.businessName + '/' + event.id;
