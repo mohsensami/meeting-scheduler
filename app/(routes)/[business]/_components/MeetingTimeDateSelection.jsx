@@ -11,8 +11,8 @@ import { collection, doc, getDocs, getFirestore, query, setDoc, where } from 'fi
 import { app } from '@/config/FirebaseConfig';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-// import Plunk from '@plunk/node';
-// import { render } from '@react-email/render';
+import Plunk from '@plunk/node';
+import { render } from '@react-email/render';
 import Email from '@/emails';
 
 function MeetingTimeDateSelection({ eventInfo, businessInfo }) {
@@ -28,7 +28,7 @@ function MeetingTimeDateSelection({ eventInfo, businessInfo }) {
     const router = useRouter();
     const db = getFirestore(app);
     const [loading, setLoading] = useState(false);
-    // const plunk = new Plunk(process.env.NEXT_PUBLIC_PLUNK_API_KEY);
+    const plunk = new Plunk(process.env.NEXT_PUBLIC_PLUNK_API_KEY);
     useEffect(() => {
         eventInfo?.duration && createTimeSlot(eventInfo?.duration);
     }, [eventInfo]);
@@ -101,27 +101,27 @@ function MeetingTimeDateSelection({ eventInfo, businessInfo }) {
      * @param {*} user
      */
     const sendEmail = (user) => {
-        // const emailHtml = render(
-        //     <Email
-        //         businessName={businessInfo?.businessName}
-        //         date={format(date, 'PPP').toString()}
-        //         duration={eventInfo?.duration}
-        //         meetingTime={selectedTime}
-        //         meetingUrl={eventInfo.locationUrl}
-        //         userFirstName={user}
-        //     />
-        // );
-        // plunk.emails
-        //     .send({
-        //         to: userEmail,
-        //         subject: 'Meeting Schedul Details',
-        //         body: emailHtml,
-        //     })
-        //     .then((resp) => {
-        //         console.log(resp);
-        //         setLoading(false);
-        //         router.replace('/confirmation');
-        //     });
+        const emailHtml = render(
+            <Email
+                businessName={businessInfo?.businessName}
+                date={format(date, 'PPP').toString()}
+                duration={eventInfo?.duration}
+                meetingTime={selectedTime}
+                meetingUrl={eventInfo.locationUrl}
+                userFirstName={user}
+            />
+        );
+        plunk.emails
+            .send({
+                to: userEmail,
+                subject: 'Meeting Schedul Details',
+                body: emailHtml,
+            })
+            .then((resp) => {
+                console.log(resp);
+                setLoading(false);
+                router.replace('/confirmation');
+            });
     };
 
     /**
